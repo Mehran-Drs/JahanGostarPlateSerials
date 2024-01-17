@@ -46,7 +46,7 @@ namespace PlateSerials
                 {
                     serialFirst2Digit.Text = lastPlateSerial[0].ToString() + lastPlateSerial[1].ToString();
                     serialLetter.Text = lastPlateSerial[2].ToString();
-                    serialSecond3Digit.Text = lastPlateSerial[3].ToString() + lastPlateSerial[4].ToString();
+                    serialSecond3Digit.Text = lastPlateSerial[3].ToString() + lastPlateSerial[4].ToString() + lastPlateSerial[5].ToString();
                     serialLast2Digit.Text = lastPlateSerial[6].ToString() + lastPlateSerial[7].ToString();
                 }
                 else
