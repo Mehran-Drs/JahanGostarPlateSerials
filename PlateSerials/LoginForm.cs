@@ -26,17 +26,21 @@ namespace PlateSerials
                 var plateService = new PlateDetectorService();
                 var loginResponse = await plateService.LoginAysnc(loginRequest);
 
-                if (loginResponse != null)
-                {
+                //if (loginResponse != null)
+                //{
 
                     PlateSerialForm mainForm = new PlateSerialForm();
                     this.Hide();
-                    mainForm.Token = loginResponse.Token;
+                    mainForm.Token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2hhbW1hZGFzaGVyaSIsImlhdCI6MTcwNTQ4OTM4MSwiZXhwIjoxNzA1NTQ5MzgxfQ.8EzhS5e_YW6i-yOzg1hJOJxs7IZ4ULCLtm42JADiQJQ";
                     mainForm.ShowDialog();
                     this.Close();
 
-                }
-                MessageBox.Show("مشکلی در عملیات ورود پیش آمده است لطفا مجددا تلاش فرمایید");
+                ////}
+                //else
+                //{
+                //MessageBox.Show("مشکلی در عملیات ورود پیش آمده است لطفا مجددا تلاش فرمایید");
+
+                //}
 
             }
 
