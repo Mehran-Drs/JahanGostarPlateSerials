@@ -92,7 +92,8 @@ namespace PlateSerials
             {
                 try
                 {
-                    _capture = new VideoCapture("rtsp://admin:8B06C27PAG67865@5.200.70.115:553/cam/realmonitor?channel=1&subtype=0");
+                    var cameraUrl = File.ReadAllText("CameraUrl.txt");
+                    _capture = new VideoCapture($"rtsp://admin:8B06C27PAG67865@{cameraUrl}/cam/realmonitor?channel=1&subtype=0");
                     _capture.ImageGrabbed += ProcessFrame;
                     _capture.Set(Emgu.CV.CvEnum.CapProp.Fps,1);
                     _capture.Start();

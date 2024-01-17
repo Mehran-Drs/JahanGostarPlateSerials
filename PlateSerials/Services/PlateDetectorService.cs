@@ -21,13 +21,12 @@ namespace PlateSerials.Services
         }
         public async Task<LoginResponseDto> LoginAysnc(LoginRequestDto model)
         {
-            var request = new RestRequest("/User/Login", Method.Post);
-            
-            request.AddBody(model);
-
+            var request = new RestRequest("http://5.200.70.115:8092/plateTracker/user/login", Method.Post);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddJsonBody(model);
             try
             {
-                var response = await _client.PostAsync(request);
+                RestResponse response = await _client.ExecuteAsync(request);
 
                 var content = JsonConvert.DeserializeObject<LoginResponseDto>(response.Content);
                 return content;
