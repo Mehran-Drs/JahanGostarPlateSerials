@@ -1,5 +1,5 @@
 {
-  "CameraUrl": "5.200.70.115:553",
-  "DetectionUrl": "http://5.200.70.115:8092",
-  "TikmentUrl": "http://localhost:55834"
+  "CameraUrl": "192.168.20.17",
+  "DetectionUrl": "http://192.168.20.16:8092",
+  "TikmentUrl": "https://timeapi.tikment.ir"
 }
