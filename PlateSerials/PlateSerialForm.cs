@@ -4,6 +4,7 @@ using Emgu.CV.Structure;
 using PlateSerials.Dtos;
 using PlateSerials.Helpers;
 using PlateSerials.Services;
+using PlateSerials.Statics;
 
 namespace PlateSerials
 {
@@ -35,6 +36,20 @@ namespace PlateSerials
 
             if (lastPlate != null && lastPlate.DetectionId != _lastPlateId && !string.IsNullOrEmpty(lastPlate.Result.FirstOrDefault().Output.Text))
             {
+                var tikmentService = new TikmentService();
+
+                var tikmentResult = await tikmentService.AddClockingByPlateSerial(lastPlate.Result.FirstOrDefault().Output.Text);
+
+                if (tikmentResult != null)
+                {
+                    MessageBox.Show($"تردد برای {tikmentResult.Data.PersonFullName} در تاریخ {tikmentResult.Data.Date} ذخیره شد");
+                }
+                //else
+                //{
+                //    MessageBox.Show($"پلاک یافت نشد");
+
+                //}
+
                 var lastPlateSerial = lastPlate.Result.FirstOrDefault().Output.Text.ToArray();
                 var dateTime = DateTime.Now;
                 _lastPlateId = lastPlate.DetectionId;
@@ -42,22 +57,37 @@ namespace PlateSerials
                 insertDateTimeLabel.Text = dateTime.ToShamsi();
                 insertTimeLabel.Text = dateTime.ToString("HH:mm:ss");
 
+                serialFirst2Digit.Text = string.Empty;
+                serialLetter.Text = string.Empty;
+                serialSecond3Digit.Text = string.Empty;
+                serialLast2Digit.Text = string.Empty;
+
+
                 if (lastPlate.Result.FirstOrDefault().Output.Text.Length == 8)
                 {
                     serialFirst2Digit.Text = lastPlateSerial[0].ToString() + lastPlateSerial[1].ToString();
                     serialLetter.Text = lastPlateSerial[2].ToString();
                     serialSecond3Digit.Text = lastPlateSerial[3].ToString() + lastPlateSerial[4].ToString() + lastPlateSerial[5].ToString();
                     serialLast2Digit.Text = lastPlateSerial[6].ToString() + lastPlateSerial[7].ToString();
+                    plateSerialsListBox.Items.Insert(0, lastPlate.Result.FirstOrDefault().Output.Text + $" ({dateTime.ToShamsiWithTime()})");
+
+                }
+                else if (lastPlate.Result.FirstOrDefault().Status == 406)
+                {
+                    serialFirst2Digit.Text = "ناخوانا";
+                    plateSerialsListBox.Items.Insert(0, "ناخوانا" + $" ({dateTime.ToShamsiWithTime()})");
+
                 }
                 else
                 {
                     serialFirst2Digit.Text = lastPlate.Result.FirstOrDefault().Output.Text;
+                    plateSerialsListBox.Items.Insert(0, lastPlate.Result.FirstOrDefault().Output.Text + $" ({dateTime.ToShamsiWithTime()})");
+
                 }
 
 
                 LoadImageFromBase64(lastPlate.Result.FirstOrDefault().MetaData, lastPlatePictureBox);
 
-                plateSerialsListBox.Items.Insert(0, lastPlate.Result.FirstOrDefault().Output.Text + $" ({dateTime.ToShamsiWithTime()})");
             }
         }
 
@@ -92,13 +122,13 @@ namespace PlateSerials
             {
                 try
                 {
-                    var cameraUrl = File.ReadAllText("CameraUrl.txt");
+                    var cameraUrl = StaticDatas.JsonFileUrl.GetJsonValue("CameraUrl");
                     _capture = new VideoCapture($"rtsp://admin:8B06C27PAG67865@{cameraUrl}/cam/realmonitor?channel=1&subtype=0");
                     _capture.ImageGrabbed += ProcessFrame;
-                    _capture.Set(Emgu.CV.CvEnum.CapProp.Fps,1);
+                    _capture.Set(Emgu.CV.CvEnum.CapProp.Fps, 1);
                     _capture.Start();
 
-                  //  Application.Idle += ProcessFrame;
+                    //  Application.Idle += ProcessFrame;
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +151,11 @@ namespace PlateSerials
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

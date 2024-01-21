@@ -32,10 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="CameraUrl.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Url.txt">
+    <None Update="Urls.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -12,6 +12,7 @@ namespace PlateSerials
 
         private async void loginBtn_Click(object sender, EventArgs e)
         {
+
             if (string.IsNullOrEmpty(userNameTxtBox.Text) || string.IsNullOrEmpty(passwordTxtBox.Text))
             {
                 MessageBox.Show("لطفا نام کاربری و رمز عبور را به صورت کامل وارد نمایید");
@@ -59,6 +60,11 @@ namespace PlateSerials
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

@@ -23,6 +23,10 @@ namespace PlateSerials.Dtos
 
         [JsonPropertyName("metaDate")]
         public string MetaData { get; set; }
+
+
+        [JsonPropertyName("status")]
+        public int Status { get; set; }
     }
     public class PlateDetectionOutputResponseDto
     {

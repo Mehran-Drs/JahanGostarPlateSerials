@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PlateSerials.Dtos;
+using PlateSerials.Helpers;
+using PlateSerials.Statics;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace PlateSerials.Services
         private readonly RestClient _client;
         public PlateDetectorService()
         {
-            var url = File.ReadAllText("Url.txt");
+            var url = StaticDatas.JsonFileUrl.GetJsonValue("DetectionUrl");
             _client = new RestClient($"{url}/plateTracker");
         }
         public async Task<LoginResponseDto> LoginAysnc(LoginRequestDto model)
