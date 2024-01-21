@@ -21,8 +21,8 @@ namespace PlateSerials
             {
                 var loginRequest = new LoginRequestDto()
                 {
-                    Username = userNameTxtBox.Text,
-                    Password = passwordTxtBox.Text,
+                    Username = "mohammadasheri",
+                    Password = "OkH9Poa2Dn8Uo",
                 };
                 var plateService = new PlateDetectorService();
                 var loginResponse = await plateService.LoginAysnc(loginRequest);
