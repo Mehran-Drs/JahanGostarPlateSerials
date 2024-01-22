@@ -125,6 +125,9 @@ namespace PlateSerials
                     var cameraUrl = StaticDatas.JsonFileUrl.GetJsonValue("CameraUrl");
                     _capture = new VideoCapture($"rtsp://admin:8B06C27PAG67865@{cameraUrl}/cam/realmonitor?channel=1&subtype=0");
                     _capture.ImageGrabbed += ProcessFrame;
+                    _capture.Set(Emgu.CV.CvEnum.CapProp.FrameHeight, 240);
+                    _capture.Set(Emgu.CV.CvEnum.CapProp.FrameWidth, 320);
+
                     _capture.Set(Emgu.CV.CvEnum.CapProp.Fps, 1);
                     _capture.Start();
 
